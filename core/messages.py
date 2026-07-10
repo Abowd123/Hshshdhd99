@@ -571,6 +571,105 @@ DEFAULT_MESSAGES: dict[str, str] = {
     "global_filter.prompt_del_random": (
         "{botkey} تمام عيني\n{botkey} الحين ارسل الرد عشان امسحه\n☆"
     ),
+
+    # ── group_update (تفعيل/تعطيل المجموعات + إشعارات الدخول/الخروج للمطورين) ──
+
+    # للمجموعة: تعطيل تلقائي بسبب سحب صلاحية إدارية أو نقصانها
+    "group_update.auto_disabled_group_notice": (
+        "{botkey} من 「 {mention} 」\n"
+        "{botkey} تم تعطيل خدمتي تلقائياً في هذه المجموعة لأن صلاحياتي كإدمن نقصت أو انسحبت\n"
+        "{botkey} أرسل \"تفعيل\" بعد ما تعطيني كل الصلاحيات عشان أرجع أشتغل\n☆"
+    ),
+
+    # للمطورين: إشعار بسحب البوت من الإدارة في مجموعة (تعطيل تلقائي)
+    "group_update.admin_removed_dev": (
+        "{botkey} تم سحب صلاحية الإدمن مني في مجموعة\n"
+        "{botkey} بواسطة : {mention} ( {target_username} | {target_id} )\n"
+        "{botkey} المجموعة : {chat_title} ( {chat_username} | {chat_id} )\n"
+        "{count_line}☆"
+    ),
+
+    # للمطورين: إشعار بنقصان صلاحيات الإدمن (تعطيل تلقائي)
+    "group_update.admin_privileges_reduced_dev": (
+        "{botkey} تم تقليل صلاحياتي الإدارية في مجموعة، عطّلت نفسي تلقائياً\n"
+        "{botkey} بواسطة : {mention} ( {target_username} | {target_id} )\n"
+        "{botkey} المجموعة : {chat_title} ( {chat_username} | {chat_id} )\n"
+        "{count_line}☆"
+    ),
+
+    # الخدمة معطّلة عموماً من المطور (Global disable) — تُرسل للمجموعة
+    "group_update.service_disabled_by_dev": (
+        "{botkey} الخدمة معطّلة حالياً من المطور، حاول لاحقاً\n☆"
+    ),
+
+    # للمجموعة: تفعيل تلقائي بعد منح كل الصلاحيات المطلوبة
+    "group_update.auto_enabled_group_notice": (
+        "{botkey} من 「 {mention} 」\n"
+        "{botkey} ابشر تفعّلت الخدمة تلقائياً في هذه المجموعة\n"
+        "{botkey} اضغط الزر تحت عشان تشوف الأوامر\n☆"
+    ),
+
+    # للمطورين: إشعار بمجموعة جديدة انفعّلت (تلقائياً أو بالأمر)
+    "group_update.new_group_enabled_dev": (
+        "{botkey} انفعّلت مجموعة جديدة\n"
+        "{botkey} بواسطة : {mention} ( {target_username} | {target_id} )\n"
+        "{botkey} المجموعة : {chat_title} ( {chat_username} | {chat_id} )\n"
+        "{count_line}☆"
+    ),
+
+    # رفض أمر "تفعيل" لأن المرسل مو مالك/إدمن ولا عنده صلاحية owner_pls
+    "group_update.enable_denied_not_admin": (
+        "هذا الأمر يخص ( المالك أو الإدمن ) بس"
+    ),
+
+    # المجموعة مفعّلة أصلاً
+    "group_update.enable_already": "{botkey} الخدمة مفعّلة أصلاً في هذه المجموعة",
+
+    # صلاحيات البوت ناقصة فما قدر يفعّل الخدمة
+    "group_update.enable_missing_permissions": (
+        "{botkey} عطني كل الصلاحيات الإدارية أولاً (حذف رسائل، تقييد أعضاء، تثبيت، دعوة) وبعدين أرسل \"تفعيل\""
+    ),
+
+    # نجاح تفعيل الخدمة بالأمر يدوياً
+    "group_update.enable_success_group_notice": (
+        "{botkey} من 「 {mention} 」\n"
+        "{botkey} ابشر فعّلت الخدمة في هذه المجموعة\n"
+        "{botkey} اضغط الزر تحت عشان تشوف الأوامر\n☆"
+    ),
+
+    # رفض أمر "تعطيل" لأن المرسل مو مالك/إدمن ولا عنده صلاحية owner_pls
+    "group_update.disable_denied_not_admin": (
+        "هذا الأمر يخص ( المالك أو الإدمن ) بس"
+    ),
+
+    # نجاح تعطيل الخدمة بالأمر يدوياً
+    "group_update.disable_success_group_notice": (
+        "{botkey} من 「 {mention} 」\n{botkey} ابشر عطّلت الخدمة في هذه المجموعة\n☆"
+    ),
+
+    # للمطورين: إشعار بتعطيل مجموعة بالأمر
+    "group_update.group_disabled_dev": (
+        "{botkey} تم تعطيل الخدمة في مجموعة\n"
+        "{botkey} بواسطة : {mention} ( {target_username} | {target_id} )\n"
+        "{botkey} المجموعة : {chat_title} ( {chat_username} | {chat_id} )\n"
+        "{count_line}☆"
+    ),
+
+    # للمطورين: إشعار بمغادرة البوت مجموعة بأمر "اطلعي/اطلع" من المالك
+    "group_update.left_group_by_command_dev": (
+        "{botkey} طلعت من مجموعة بأمر من المالك\n"
+        "{botkey} بواسطة : {mention} ( {target_username} | {target_id} )\n"
+        "{botkey} المجموعة : {chat_title} ( {chat_username} | {chat_id} )\n"
+        "{count_line}☆"
+    ),
+
+    # للمطورين: إشعار بطرد البوت من مجموعة (كيك)
+    "group_update.bot_kicked_dev": (
+        "{botkey} تم طردي من مجموعة\n"
+        "{botkey} بواسطة : {mention} ( {target_username} | {target_id} )\n"
+        "{botkey} المجموعة : {chat_title} ( {chat_username} | {chat_id} )\n"
+        "{count_line}☆"
+    ),
 }
 
 
