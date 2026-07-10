@@ -632,6 +632,8 @@ async def ChatMemberUpdate(c, m):
 
 async def get_bot_status(c, m, k):
     try:
+        if m.new_chat_member is None:
+            return
         if m.new_chat_member.status == ChatMemberStatus.MEMBER:
             if m.new_chat_member.user.id == c.me.id:
                 if await rdb.get(f'{m.chat.id}:enable:{Dev_Zaid}'):
