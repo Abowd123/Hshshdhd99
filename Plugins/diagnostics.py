@@ -129,12 +129,30 @@ async def _check_service(name: str, url: str, headers: dict | None = None) -> st
         return f"❌ {name} — لا يستجيب ({type(e).__name__}, {ms}ms)"
 
 
+async def _regdate_check() -> str:
+    """يعيد استخدام الدالة الحقيقية helpers.get_create.get_creation_date على
+    آيدي المطوّر نفسه (SUDO_ID) بدل تخمين رابط عام — هذا فحص دقيق فعلي
+    للمسار/الطريقة/الهيدرز الصحيحة المستخدمة فعلاً في الكود، لا تخمين."""
+    start = time.monotonic()
+    try:
+        from helpers.get_create import get_creation_date
+        date = await asyncio.wait_for(get_creation_date(sudo_id), timeout=CHECK_TIMEOUT)
+        ms = int((time.monotonic() - start) * 1000)
+        return f"✅ فحص تاريخ التسجيل (regdate) — نجح ({ms}ms, تاريخك: {date})"
+    except Exception as e:
+        ms = int((time.monotonic() - start) * 1000)
+        return f"❌ فحص تاريخ التسجيل (regdate) — {type(e).__name__} ({ms}ms)"
+
+
 async def _external_services_report() -> list[str]:
+    # المسارات هنا مطابقة تماماً لما تستدعيه الأكواد الفعلية (وليست تخميناً
+    # على الدومين العام فقط) — الأولى كانت تعطي 404 خاطئ على regdate لأنها
+    # كانت تطلب الدومين المجرّد بدل المسار/الطريقة الصحيحة.
     checks = [
-        _check_service("الترجمة (hozory)", "https://hozory.com"),
-        _check_service("تحويل نص لصوت (eduardo-tate)", "https://eduardo-tate.com"),
-        _check_service("جسر gptzaid", "https://gptzaid.zaidbot.repl.co"),
-        _check_service("فحص تاريخ التسجيل (regdate)", "https://restore-access.indream.app"),
+        _check_service("الترجمة (hozory)", "https://hozory.com/translate/?target=en&text=test"),
+        _check_service("تحويل نص لصوت (eduardo-tate)", "https://eduardo-tate.com/AI/voice.php?text=test"),
+        _check_service("جسر gptzaid", "https://gptzaid.zaidbot.repl.co/1/text=test"),
+        _regdate_check(),
     ]
     if groq_api_key:
         checks.append(_check_service(
