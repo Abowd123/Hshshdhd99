@@ -57,6 +57,12 @@ redis_port = int(_optional("REDIS_PORT", "6379"))
 redis_db = int(_optional("REDIS_DB", "0"))
 redis_password = _optional("REDIS_PASSWORD") or None
 
+# --- Groq API (اختياري: أمر الذكاء الاصطناعي "ذكاء" و "/ai") ---
+# احصل على المفتاح من https://console.groq.com/keys
+# اتركه فارغاً لو لا تريد تفعيل هذه الميزة (الأمر سيرد برسالة توضيحية بدل الفشل الصامت).
+groq_api_key = _optional("GROQ_API_KEY")
+groq_model = _optional("GROQ_MODEL", "openai/gpt-oss-20b")
+
 # --- معرّف مالك إضافي (اختياري تماماً) ---
 # كان هذا سابقاً ثابتاً مكتوباً صراحة في الكود (BOT_OWNER_FALLBACK_ID داخل
 # helpers/ranks.py و Plugins/message_handler.py) يمنح صلاحية Dev كاملة
